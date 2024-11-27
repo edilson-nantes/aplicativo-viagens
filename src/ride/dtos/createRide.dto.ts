@@ -1,15 +1,15 @@
 import { IsString, IsNotEmpty } from 'class-validator';
 
 export class CreateRideDTO {
-  @IsString({ message: 'Customer ID must be a string' })
-  @IsNotEmpty({ message: 'Customer ID is required' })
+  @IsString({ message: 'Os dados fornecidos no corpo da requisição são inválidos' })
+  @IsNotEmpty({ message: 'Os dados fornecidos no corpo da requisição são inválidos' })
   customer_id: string;
 
-  @IsString({ message: 'Origin must be a string' })
-  @IsNotEmpty({ message: 'Origin is required' })
+  @IsString({ message: 'Os dados fornecidos no corpo da requisição são inválidos' })
+  @IsNotEmpty({ message: 'Os dados fornecidos no corpo da requisição são inválidos' })
   origin: string;
 
-  @IsString({ message: 'Destination must be a string' })
-  @IsNotEmpty({ message: 'Destination is required' })
+  @IsString({ message: 'Os dados fornecidos no corpo da requisição são inválidos' })
+  @IsNotEmpty({ message: 'Os dados fornecidos no corpo da requisição são inválidos' })
   destination: string;
 }

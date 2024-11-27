@@ -16,7 +16,7 @@ export class GooglemapService {
         
         const headers = {
             'X-Goog-Api-Key': this.apiKey,
-            'X-Goog-FieldMask': 'routes.duration,routes.distanceMeters,routes.polyline.encodedPolyline',
+            'X-Goog-FieldMask': 'routes.distanceMeters,routes.duration,routes.polyline.encodedPolyline,routes.legs.startLocation,routes.legs.endLocation',
             'Content-Type': 'application/json',
         };
 
@@ -40,7 +40,13 @@ export class GooglemapService {
             const response = await firstValueFrom(
                 this.httpService.post(this.apiUrl, body, { headers }),
             );
-            return response.data;
+
+            if (!response.data.routes || response.data.routes.length === 0) {
+                throw new Error('Nenhuma rota encontrada.');
+            }
+        
+            const firstRoute = response.data.routes[0];
+            return firstRoute;
         } catch (error) {
             throw new HttpException(
                 error.response?.data || 'Erro ao acessar a API do Google',

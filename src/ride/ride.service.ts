@@ -14,7 +14,7 @@ export class RideService {
     async estimate(createRideDTO: CreateRideDTO){
         
         if (createRideDTO.origin === createRideDTO.destination) {
-            throw new BadRequestException('Origin and destination must be different');
+            throw new BadRequestException('Os dados fornecidos no corpo da requisição são inválidos');
           }
 
         try {
@@ -23,20 +23,39 @@ export class RideService {
               createRideDTO.destination,
             );
 
-            const drivers = await this.driverService.getDriverByDistance(route.routes[0].distanceMeters);
+            const drivers = await this.driverService.getDriverByDistance(route.distanceMeters);
       
+            var options = [];
+            drivers.forEach((driver) => {
+                var value = (route.distanceMeters/1000) * driver.value;
+                options.push({
+                    
+                    id: driver.id,
+                    name: driver.name,
+                    description: driver.description,
+                    vehicle: driver.car,
+                    review: {
+                        review: driver.review
+                    },
+                    value: value
+                });
+            });
+
+            const data = {
+                origin: route.legs[0].startLocation.latLng,
+                destination: route.legs[0].endLocation.latLng,
+                distance: route.distanceMeters,
+                duration: route.duration,
+                options: options.sort((a, b) => a.value - b.value),
+                routeResponse: route
+            }
+            
             return {
-                origin: {},
-                destination: {},
-                distance: route.routes[0].distanceMeters,
-                duration: route.routes[0].duration,
-                options: drivers,
-                routeResponse: route.routes[0]
-        };
+                message: "Operação realizada com sucesso",
+                data
+            };
 
           } catch (error) {
-             // Tratamento de erros e logging
-                console.log('Os dados fornecidos no corpo da requisição são inválidos', error.message);
                 throw new BadRequestException(
                     'Os dados fornecidos no corpo da requisição são inválidos',
                 );
