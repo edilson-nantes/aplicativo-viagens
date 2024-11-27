@@ -18,22 +18,27 @@ export class RideService {
           }
 
         try {
-            // Chamada ao serviço do Google Maps
             const route = await this.googleMapsService.calculateRoute(
               createRideDTO.origin,
               createRideDTO.destination,
             );
+
+            const drivers = await this.driverService.getDriverByDistance(route.routes[0].distanceMeters);
       
             return {
-              success: true,
-              message: 'Route estimated successfully',
-              data: route,
-            };
+                origin: {},
+                destination: {},
+                distance: route.routes[0].distanceMeters,
+                duration: route.routes[0].duration,
+                options: drivers,
+                routeResponse: route.routes[0]
+        };
+
           } catch (error) {
              // Tratamento de erros e logging
-                console.log('Failed to estimate route', error.message);
+                console.log('Os dados fornecidos no corpo da requisição são inválidos', error.message);
                 throw new BadRequestException(
-                    'Failed to estimate the route. Please try again later.',
+                    'Os dados fornecidos no corpo da requisição são inválidos',
                 );
           }
         
