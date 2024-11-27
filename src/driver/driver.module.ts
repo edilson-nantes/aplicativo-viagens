@@ -7,6 +7,7 @@ import { DriverService } from './driver.service';
 @Module({
   imports: [TypeOrmModule.forFeature([DriverEntity])],
   controllers: [DriverController],
-  providers: [DriverService]
+  providers: [DriverService],
+  exports: [DriverService]
 })
 export class DriverModule {}

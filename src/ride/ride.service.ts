@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { DriverService } from 'src/driver/driver.service';
 import { GooglemapService } from 'src/googlemap/googlemap.service';
 import { CreateRideDTO } from './dtos/createRide.dto';
@@ -13,15 +13,29 @@ export class RideService {
 
     async estimate(createRideDTO: CreateRideDTO){
         
-        if((createRideDTO.customer_id && createRideDTO.destination && createRideDTO.origin) && (createRideDTO.origin != createRideDTO.destination)){
-            
-            // Chamada para a Google Maps API
-            const response = await this.googleMapsService.calculateRoute(
-                createRideDTO.origin,
-                createRideDTO.destination,
+        if (createRideDTO.origin === createRideDTO.destination) {
+            throw new BadRequestException('Origin and destination must be different');
+          }
+
+        try {
+            // Chamada ao serviço do Google Maps
+            const route = await this.googleMapsService.calculateRoute(
+              createRideDTO.origin,
+              createRideDTO.destination,
             );
-            
-        };
+      
+            return {
+              success: true,
+              message: 'Route estimated successfully',
+              data: route,
+            };
+          } catch (error) {
+             // Tratamento de erros e logging
+                console.log('Failed to estimate route', error.message);
+                throw new BadRequestException(
+                    'Failed to estimate the route. Please try again later.',
+                );
+          }
         
     };
 }
