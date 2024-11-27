@@ -1,15 +1,15 @@
-import { IsString, IsNotEmpty, IsUUID } from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
 
 export class CreateRideDTO {
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'Customer ID must be a string' })
+  @IsNotEmpty({ message: 'Customer ID is required' })
   customer_id: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'Origin must be a string' })
+  @IsNotEmpty({ message: 'Origin is required' })
   origin: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'Destination must be a string' })
+  @IsNotEmpty({ message: 'Destination is required' })
   destination: string;
 }

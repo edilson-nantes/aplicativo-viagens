@@ -15,12 +15,12 @@ export class CreateTableDriver1732649460804 implements MigrationInterface {
             CREATE TABLE IF NOT EXISTS public.driver
             (
                 id integer NOT NULL DEFAULT nextval('driver_id_seq'::regclass),
-                nome character varying COLLATE pg_catalog."default" NOT NULL,
-                descricao character varying COLLATE pg_catalog."default" NOT NULL,
-                carro character varying COLLATE pg_catalog."default" NOT NULL,
-                avaliacao character varying COLLATE pg_catalog."default" NOT NULL,
-                taxa numeric NOT NULL,
-                minimo numeric NOT NULL,
+                name character varying COLLATE pg_catalog."default" NOT NULL,
+                description character varying COLLATE pg_catalog."default" NOT NULL,
+                car character varying COLLATE pg_catalog."default" NOT NULL,
+                review character varying COLLATE pg_catalog."default" NOT NULL,
+                value real NOT NULL,
+                minimum real NOT NULL,
                 created_at timestamp without time zone NOT NULL DEFAULT now(),
                 updated_at timestamp without time zone NOT NULL DEFAULT now(),
                 CONSTRAINT "PK_61de71a8d217d585ecd5ee3d065" PRIMARY KEY (id)

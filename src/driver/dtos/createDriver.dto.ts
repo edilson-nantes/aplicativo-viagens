@@ -1,8 +1,8 @@
 export interface CreateDriverDTO{
-    nome: string;
-    descricao: string;
-    carro: string;
-    avaliacao: string;
-    taxa: number;
-    minimo: number;
+    name: string;
+    description: string;
+    car: string;
+    review: string;
+    value: number;
+    minimum: number;
 }

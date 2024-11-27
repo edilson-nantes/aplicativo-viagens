@@ -5,23 +5,23 @@ export class DriverEntity{
     @PrimaryGeneratedColumn('rowid')
     id: number;
 
-    @Column({name: 'nome', nullable: false})
-    nome: string;
+    @Column({name: 'name', nullable: false})
+    name: string;
 
-    @Column({name: 'descricao', nullable: false})
-    descricao: string;
+    @Column({name: 'description', nullable: false})
+    description: string;
 
-    @Column({name: 'carro', nullable: false})
-    carro: string;
+    @Column({name: 'car', nullable: false})
+    car: string;
 
-    @Column({name: 'avaliacao', nullable: false})
-    avaliacao: string;
+    @Column({name: 'review', nullable: false})
+    review: string;
 
-    @Column({name: 'taxa', nullable: false})
-    taxa: number;
+    @Column({name: 'value', nullable: false})
+    value: number;
 
-    @Column({name: 'minimo', nullable: false})
-    minimo: number;
+    @Column({name: 'minimum', nullable: false})
+    minimum: number;
 
     @CreateDateColumn({name: 'created_at'})
     createdAt: Date;
