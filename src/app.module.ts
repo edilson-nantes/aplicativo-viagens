@@ -3,6 +3,7 @@ import { RideModule } from './ride/ride.module';
 import { DriverModule } from './driver/driver.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { GooglemapModule } from './googlemap/googlemap.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       migrationsRun: true
     }),
     RideModule,
-    DriverModule],
+    DriverModule,
+    GooglemapModule],
   controllers: [],
   providers: [],
 })
