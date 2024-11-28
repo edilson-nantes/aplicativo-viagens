@@ -23,6 +23,16 @@ export class DriverService {
         return this.driverRepository.find();
     }
 
+    async getDriverById(id: number): Promise<DriverEntity> {
+        const driver = await this.driverRepository.findOne({ where: { id } });
+
+        if (!driver) {
+            throw new Error("Motorista não encontrado.");
+        }
+
+        return driver;
+    }
+
     async getDriverByDistance(distanceMeters: number): Promise<DriverEntity[]> {
         try{
         
@@ -32,16 +42,11 @@ export class DriverService {
 
             return matchDrivers;
         }catch (error){
-            // Loga o erro para análise
-            console.log('Failed to get drivers by distance', error.message);
 
-            // Retorna um erro amigável
             throw new BadRequestException(
                 'An error occurred while processing your request. Please ensure the input is valid and try again.',
             );
         };
-        
-        
         
     }
 
